@@ -1,0 +1,50 @@
+name: Migrate Governance Repository to NixLine
+
+on:
+  workflow_dispatch:
+    inputs:
+      governance-repo:
+        description: 'URL of governance repository to migrate'
+        required: true
+        type: string
+        default: 'https://github.com/example-org/governance'
+      organization-name:
+        description: 'Organization name'
+        required: true
+        type: string
+        default: 'Example Organization'
+      organization-email:
+        description: 'Organization contact email'
+        required: true
+        type: string
+        default: 'admin@example.com'
+      security-email:
+        description: 'Security contact email (optional)'
+        required: false
+        type: string
+      output-mode:
+        description: 'Output mode: artifact, commit, or pr'
+        required: false
+        type: choice
+        options:
+          - artifact
+          - commit
+          - pr
+        default: 'artifact'
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: read
+
+jobs:
+  migrate:
+    name: Migrate Governance to NixLine Baseline
+    uses: NixLine-org/.github/.github/workflows/migrate-governance.yml@stable
+    with:
+      governance-repo: ${{ inputs.governance-repo }}
+      organization-name: ${{ inputs.organization-name }}
+      organization-email: ${{ inputs.organization-email }}
+      security-email: ${{ inputs.security-email }}
+      output-mode: ${{ inputs.output-mode }}
+      dry-run: false

@@ -1,0 +1,28 @@
+name: Test Governance Migration Compatibility
+
+on:
+  workflow_dispatch:
+    inputs:
+      governance-repo:
+        description: 'URL of governance repository to test'
+        required: true
+        type: string
+        default: 'https://github.com/example-org/governance'
+      organization-name:
+        description: 'Organization name for testing'
+        required: true
+        type: string
+        default: 'Example Organization'
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  test-migration:
+    name: Test Migration Compatibility
+    uses: NixLine-org/.github/.github/workflows/test-governance-migration.yml@stable
+    with:
+      organization-name: ${{ inputs.organization-name }}
+      organization-email: "admin@example.com"
+      dry-run-only: true
