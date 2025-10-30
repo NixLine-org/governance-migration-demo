@@ -4,11 +4,22 @@ on:
   workflow_dispatch:
     inputs:
       governance-repo:
-        description: 'URL of governance repository to test (optional)'
+        description: 'URL of governance repository to test (e.g., https://github.com/example-org/governance)'
+        required: true
+        type: string
+        default: 'https://github.com/example-org/governance'
+      organization-name:
+        description: 'Organization name for testing'
         required: false
         type: string
-      organization-name:
-        description: 'Organization name for testing (optional)'
+        default: 'Test Organization'
+      organization-email:
+        description: 'Organization contact email'
+        required: false
+        type: string
+        default: 'admin@example.com'
+      security-email:
+        description: 'Security contact email (optional)'
         required: false
         type: string
 
@@ -23,3 +34,5 @@ jobs:
     with:
       governance-repo: ${{ inputs.governance-repo }}
       organization-name: ${{ inputs.organization-name }}
+      organization-email: ${{ inputs.organization-email }}
+      security-email: ${{ inputs.security-email }}
