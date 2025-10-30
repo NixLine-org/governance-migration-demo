@@ -4,15 +4,13 @@ on:
   workflow_dispatch:
     inputs:
       governance-repo:
-        description: 'URL of governance repository to test'
-        required: true
+        description: 'URL of governance repository to test (optional)'
+        required: false
         type: string
-        default: 'https://github.com/example-org/governance'
       organization-name:
-        description: 'Organization name for testing'
-        required: true
+        description: 'Organization name for testing (optional)'
+        required: false
         type: string
-        default: 'Example Organization'
 
 permissions:
   contents: read
@@ -25,5 +23,3 @@ jobs:
     with:
       governance-repo: ${{ inputs.governance-repo }}
       organization-name: ${{ inputs.organization-name }}
-      organization-email: "admin@example.com"
-      dry-run-only: true
